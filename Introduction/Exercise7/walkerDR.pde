@@ -1,9 +1,13 @@
 class walkerDR {
-  int x,y;
-
+  float x,y;
+  float tx,ty;
+  
   walkerDR() {
     x = width/2;
     y = height/2;
+    
+    tx = 0;
+    ty = 10000;
   }
 
   void display() {
@@ -15,17 +19,11 @@ class walkerDR {
   // Randomly move up, down, left, right, or stay in one place
  void step() {
     
-    float num = random(1);
-    // A 40% of moving to the right!
-    if (num < 0.5) {    
-      x++;
-    } else if (num < 0.6) {
-      x--;
-    } else if (num < 0.9) {
-      y++;
-    } else {
-      y--;
-    }
+    x = map(noise(tx), 0, 1, 0, width);
+    y = map(noise(ty), 0, 1, 0, height);
+ 
+    tx += 0.01;
+    ty += 0.01;
   
     x = constrain(x,0,width-1);
     y = constrain(y,0,height-1);
